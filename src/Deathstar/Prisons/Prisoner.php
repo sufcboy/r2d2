@@ -1,10 +1,10 @@
 <?php
 
-namespace R2D2\Prisons;
+namespace R2D2\Deathstar\Prisons;
 
 use R2D2\Hack\Mainframe;
 use R2D2\Utils\Api;
-use R2D2\Prisons\PrisonerException;
+use R2D2\Deathstar\Prisons\PrisonerException;
 
 class Prisoner
 {
@@ -14,6 +14,16 @@ class Prisoner
      * @var string
      */
     private $prisonerPath = 'prisoner';
+
+    /**
+     * @var R2D2\Hack\Mainframe
+     */
+    private $mainframe;
+
+    /**
+     * @var R2D2\Utils\Api
+     */
+    private $api;
 
     /**
      * Return details from API regarding prisoners
@@ -30,17 +40,98 @@ class Prisoner
             );
         }
 
-        // Hack the mainframe for token key
-        $mainframe = new Mainframe();
-        $token = $mainframe->getAccessToken();
-
-        // Now use the token to get the details
-        $api = new Api();
-
         // @todo Add some checks around this
-        return json_decode($api->makeGetRequest(
+        return json_decode($this->getApi()->makeGetRequest(
             $this->prisonerPath . '/' . $prisonerName,
-            $token
-        ));
+            $this->getMainframe()->getAccessToken()
+        ), true);
+    }
+
+    /**
+     * Returns the prisoner path
+     *
+     * @return string
+     */
+    public function getPrisonerPath()
+    {
+        return $this->prisonerPath;
+    }
+
+    /**
+     * Finds the prisoner details and translates
+     *
+     * @param string $prisoner
+     * @return array
+     */
+    public function findPrisonerLocation($prisoner)
+    {
+        $prisonerDetails = $this->getPrisonerDetails($prisoner);
+
+        foreach ($prisonerDetails as $key => $binary) {
+            $prisonerDetails[$key] = $this->translate($binary);
+        }
+
+        return $prisonerDetails;
+    }
+
+    /**
+     * Translate the binary
+     *
+     * @param string $binary
+     * @return string
+     */
+    private function translate($binary)
+    {
+        return pack('H*', base_convert($binary, 2, 16));
+    }
+
+    /**
+     * Sets the mainframe
+     *
+     * @param Mainframe $mainframe
+     * @return void
+     */
+    public function setMainframe(Mainframe $mainframe)
+    {
+        $this->mainframe = $mainframe;
+    }
+
+    /**
+     * Get the mainframe
+     *
+     * @return Mainframe
+     */
+    public function getMainframe()
+    {
+        if (null === $this->mainframe) {
+            $this->mainframe = new Mainframe();
+        }
+
+        return $this->mainframe;
+    }
+
+    /**
+     * Sets the API
+     *
+     * @param Api $api
+     * @return void
+     */
+    public function setApi(Api $api)
+    {
+        $this->api = $api;
+    }
+
+    /**
+     * Get the API
+     *
+     * @return Api
+     */
+    public function getApi()
+    {
+        if (null === $this->api) {
+            $this->api = new Api();
+        }
+
+        return $this->api;
     }
 }

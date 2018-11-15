@@ -16,6 +16,7 @@ class MainframeTest extends TestCase
 
     public function testGetAccessToken()
     {
+        $this->markTestSkipped('Integration test. Ignore');
         $this->mainframe->getAccessToken();
     }
 }

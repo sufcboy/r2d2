@@ -1,6 +1,6 @@
 <?php
 
-namespace R2D2\Prisons;
+namespace R2D2\Deathstar\Prisons;
 
 class PrisonerException extends \Exception
 {

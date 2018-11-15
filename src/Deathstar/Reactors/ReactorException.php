@@ -1,6 +1,6 @@
 <?php
 
-namespace R2D2\Reactors;
+namespace R2D2\Deathstar\Reactors;
 
 class ReactorException extends \Exception
 {

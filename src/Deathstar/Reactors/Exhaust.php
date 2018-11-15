@@ -1,9 +1,9 @@
 <?php
 
-namespace R2D2\Reactors;
+namespace R2D2\Deathstar\Reactors;
 
 use R2D2\Utils\Api;
-use R2D2\Reactors\ReactorException;
+use R2D2\Deathstar\Reactors\ReactorException;
 
 class Exhaust
 {
