@@ -1,0 +1,19 @@
+{
+    "name": "nickbennett/r2d2",
+    "description": "Technical test for thisisbud...I mean R2D2 repo",
+    "authors": [
+        {
+            "name": "Nick Bennett",
+            "email": "info@nickbennett.co.uk"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
+    "autoload": {
+        "psr-4": {"R2D2\\": "src/"}
+    }
+}
