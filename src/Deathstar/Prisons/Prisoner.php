@@ -82,7 +82,9 @@ class Prisoner
      */
     private function translate($binary)
     {
-        return pack('H*', base_convert($binary, 2, 16));
+        $unpacked = unpack('A*', pack('H*', base_convert($binary, 2, 16)));
+
+        return $unpacked[array_keys($unpacked)[0]];
     }
 
     /**

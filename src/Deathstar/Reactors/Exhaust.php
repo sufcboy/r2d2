@@ -2,6 +2,7 @@
 
 namespace R2D2\Deathstar\Reactors;
 
+use R2D2\Hack\Mainframe;
 use R2D2\Utils\Api;
 use R2D2\Deathstar\Reactors\ReactorException;
 
@@ -13,6 +14,16 @@ class Exhaust
      * @var string
      */
     private $exhaustPath = 'reactor/exhaust';
+
+    /**
+     * @var R2D2\Hack\Mainframe
+     */
+    private $mainframe;
+
+    /**
+     * @var R2D2\Utils\Api
+     */
+    private $api;
 
     /**
      * Delect exhaust id
@@ -30,18 +41,71 @@ class Exhaust
             );
         }
 
-        // Get token
-        $mainframe = new Mainframe();
-        $token = $mainframe->getAccessToken();
-
-        // Now use the token to get the details
-        $api = new Api();
-
         // @todo Add some checks around this
-        return json_decode($api->makeDeleteRequest(
+        return json_decode($this->getApi()->makeDeleteRequest(
             $this->exhaustPath . '/' . $exhaustId,
-            $token,
+            $this->getMainframe()->getAccessToken(),
             ['x-torpedoes' => 2]
-        ));
+        ), true);
+    }
+
+    /**
+     * Returns API path
+     *
+     * @return string
+     */
+    public function getExhaustPath()
+    {
+        return $this->exhaustPath;
+    }
+
+    /**
+     * Sets the mainframe
+     *
+     * @param Mainframe $mainframe
+     * @return void
+     */
+    public function setMainframe(Mainframe $mainframe)
+    {
+        $this->mainframe = $mainframe;
+    }
+
+    /**
+     * Get the mainframe
+     *
+     * @return Mainframe
+     */
+    public function getMainframe()
+    {
+        if (null === $this->mainframe) {
+            $this->mainframe = new Mainframe();
+        }
+
+        return $this->mainframe;
+    }
+
+    /**
+     * Sets the API
+     *
+     * @param Api $api
+     * @return void
+     */
+    public function setApi(Api $api)
+    {
+        $this->api = $api;
+    }
+
+    /**
+     * Get the API
+     *
+     * @return Api
+     */
+    public function getApi()
+    {
+        if (null === $this->api) {
+            $this->api = new Api();
+        }
+
+        return $this->api;
     }
 }
