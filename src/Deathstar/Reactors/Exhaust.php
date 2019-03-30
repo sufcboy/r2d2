@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R2D2\Deathstar\Reactors;
 
 use R2D2\Hack\Mainframe;
@@ -31,7 +33,7 @@ class Exhaust
      * @param integer $exhaustId
      * @return string
      */
-    public function deleteExhaust($exhaustId = 1)
+    public function deleteExhaust(int $exhaustId = 1): array
     {
         // Check id
         if (false === is_numeric($exhaustId)) {
@@ -54,7 +56,7 @@ class Exhaust
      *
      * @return string
      */
-    public function getExhaustPath()
+    public function getExhaustPath(): string
     {
         return $this->exhaustPath;
     }
@@ -65,7 +67,7 @@ class Exhaust
      * @param Mainframe $mainframe
      * @return void
      */
-    public function setMainframe(Mainframe $mainframe)
+    public function setMainframe(Mainframe $mainframe): void
     {
         $this->mainframe = $mainframe;
     }
@@ -75,7 +77,7 @@ class Exhaust
      *
      * @return Mainframe
      */
-    public function getMainframe()
+    public function getMainframe(): Mainframe
     {
         if (null === $this->mainframe) {
             $this->mainframe = new Mainframe();
@@ -90,7 +92,7 @@ class Exhaust
      * @param Api $api
      * @return void
      */
-    public function setApi(Api $api)
+    public function setApi(Api $api): void
     {
         $this->api = $api;
     }
@@ -100,7 +102,7 @@ class Exhaust
      *
      * @return Api
      */
-    public function getApi()
+    public function getApi(): Api
     {
         if (null === $this->api) {
             $this->api = new Api();

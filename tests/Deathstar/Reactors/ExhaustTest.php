@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R2D2\Deathstar\Reactors;
 
 use PHPUnit\Framework\TestCase;
@@ -9,12 +11,12 @@ class ExhaustTest extends TestCase
 {
     private $exhaust;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->exhaust = new Exhaust();
     }
 
-    public function testDelectExhaust()
+    public function testDelectExhaust(): void
     {
         $exhaustId = 2;
         $mockToken = '2111313123213';

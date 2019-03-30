@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R2D2\Deathstar\Prisons;
 
 use R2D2\Hack\Mainframe;
@@ -31,9 +33,9 @@ class Prisoner
      * @param string $prisonerName
      * @return array
      */
-    public function getPrisonerDetails($prisonerName = 'leia')
+    public function getPrisonerDetails(string $prisonerName = 'leia'): Array
     {
-        if (false === is_string($prisonerName) || 0 === strlen($prisonerName)) {
+        if (0 === strlen($prisonerName)) {
             throw new PrisonerException(
                 'Prisoner name needs to be passed as a string',
                 PrisonerException::ERROR_CODE_INVALID_PRISONER
@@ -52,7 +54,7 @@ class Prisoner
      *
      * @return string
      */
-    public function getPrisonerPath()
+    public function getPrisonerPath(): string
     {
         return $this->prisonerPath;
     }
@@ -63,7 +65,7 @@ class Prisoner
      * @param string $prisoner
      * @return array
      */
-    public function findPrisonerLocation($prisoner)
+    public function findPrisonerLocation(string $prisoner): Array
     {
         $prisonerDetails = $this->getPrisonerDetails($prisoner);
 
@@ -80,7 +82,7 @@ class Prisoner
      * @param string $binary
      * @return string
      */
-    private function translate($binary)
+    private function translate(string $binary): string
     {
         $unpacked = unpack('A*', pack('H*', base_convert($binary, 2, 16)));
 
@@ -93,7 +95,7 @@ class Prisoner
      * @param Mainframe $mainframe
      * @return void
      */
-    public function setMainframe(Mainframe $mainframe)
+    public function setMainframe(Mainframe $mainframe): void
     {
         $this->mainframe = $mainframe;
     }
@@ -103,7 +105,7 @@ class Prisoner
      *
      * @return Mainframe
      */
-    public function getMainframe()
+    public function getMainframe(): Mainframe
     {
         if (null === $this->mainframe) {
             $this->mainframe = new Mainframe();
@@ -118,7 +120,7 @@ class Prisoner
      * @param Api $api
      * @return void
      */
-    public function setApi(Api $api)
+    public function setApi(Api $api): void
     {
         $this->api = $api;
     }
@@ -128,7 +130,7 @@ class Prisoner
      *
      * @return Api
      */
-    public function getApi()
+    public function getApi(): Api
     {
         if (null === $this->api) {
             $this->api = new Api();

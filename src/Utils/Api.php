@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R2D2\Utils;
 
 use GuzzleHttp\Client;
@@ -38,7 +40,7 @@ class Api
      * @param string $token
      * @return string
      */
-    public function makeGetRequest($path, $token = null)
+    public function makeGetRequest(string $path, ?string $token): string
     {
         // Common across all API calls
         $options = $this->getBaseOptions();
@@ -58,7 +60,7 @@ class Api
      * @param array $formParams
      * @return string
      */
-    public function makePostRequest($path, array $formParams = null)
+    public function makePostRequest(string $path, ?array $formParams): string
     {
         // Common across all API calls
         $options = $this->getBaseOptions();
@@ -78,7 +80,7 @@ class Api
      * @param array $headersExtra
      * @return string
      */
-    public function makeDeleteRequest($path, $token, $headersExtra = [])
+    public function makeDeleteRequest(string $path, string $token, array $headersExtra = []): string
     {
         // Common across all API calls
         $options = $this->getBaseOptions();
@@ -98,7 +100,7 @@ class Api
      * @param string $token
      * @return array
      */
-    private function getTokenHeader($token)
+    private function getTokenHeader(string $token): array
     {
         return [
             'Authorization' => "Bearer $token",
@@ -114,10 +116,10 @@ class Api
      * @param array $options
      * @return string
      */
-    private function makeRequest($method, $path, array $options)
+    private function makeRequest(string $method, string $path, array $options = []): string
     {
         // Check params
-        if (false === is_string($path) || 0 === strlen($path)) {
+        if (0 === strlen($path)) {
             throw new ApiException(
                 'Invalid path provided',
                 ApiException::ERROR_CODE_INVALID_PATH
@@ -165,7 +167,7 @@ class Api
      *
      * @return array
      */
-    private function getBaseOptions()
+    private function getBaseOptions(): array
     {
         return [
             'cert' => [
@@ -178,7 +180,7 @@ class Api
     /**
      * @return GuzzleHttp\Client
      */
-    public function getClient()
+    public function getClient(): Client
     {
         if (null === $this->client) {
             $this->client = new Client([

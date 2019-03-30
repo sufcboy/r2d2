@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R2D2\Deathstar\Prisons;
 
 use PHPUnit\Framework\TestCase;
@@ -9,17 +11,17 @@ class PrisonerTest extends TestCase
 {
     private $prisoner;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->prisoner = new Prisoner();
     }
 
     /**
      * @dataProvider getTestFindLeiaLocation
-     * @param array $testResponse
+     * @param string $testResponse
      * @param array $expected
      */
-    public function testFindLeiaLocation($testResponse, $expected)
+    public function testFindLeiaLocation(string $testResponse, array $expected): void
     {
         $prisoner = 'leia';
         $mockToken = 'MYTOKEN';
@@ -63,7 +65,7 @@ class PrisonerTest extends TestCase
      *
      * @return array
      */
-    public function getTestFindLeiaLocation()
+    public function getTestFindLeiaLocation(): array
     {
         return [
             [

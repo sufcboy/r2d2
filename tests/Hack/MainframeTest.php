@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R2D2\Hack;
 
 use R2D2\Hack\Mainframe;
@@ -9,12 +11,12 @@ class MainframeTest extends TestCase
 {
     private $mainframe;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mainframe = new Mainframe();
     }
 
-    public function testGetAccessToken()
+    public function testGetAccessToken(): void
     {
         $expectedToken = 'MY_TOKEN';
 

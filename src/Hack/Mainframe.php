@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R2D2\Hack;
 
 use R2D2\Utils\Api;
@@ -36,7 +38,7 @@ class Mainframe
      * @throws MainframeException
      * @return string
      */
-    public function getAccessToken()
+    public function getAccessToken(): string
     {
         $rawResponse = $this->getApi()->makePostRequest(
             $this->tokenPath,
@@ -63,7 +65,7 @@ class Mainframe
      *
      * @return string
      */
-    public function getTokenPath()
+    public function getTokenPath(): string
     {
         return $this->tokenPath;
     }
@@ -74,7 +76,7 @@ class Mainframe
      * @param Api $api
      * @return void
      */
-    public function setApi(Api $api)
+    public function setApi(Api $api): void
     {
         $this->api = $api;
     }
@@ -84,7 +86,7 @@ class Mainframe
      *
      * @return Api
      */
-    public function getApi()
+    public function getApi(): Api
     {
         if (null === $this->api) {
             $this->api = new Api();
